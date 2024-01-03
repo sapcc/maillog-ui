@@ -8,20 +8,6 @@ import EventItemDetail from "./item_details"
 import Pagination from "../../containers/shared/pagination"
 import { isEmpty } from "lib/tools/helpers"
 
-const isValidDate = (date) =>
-  // do not allow dates that are in the future
-  !moment(date).isAfter()
-
-const ATTRIBUTES = [
-  {key: 'observer_type',  name: 'Observer Type'},
-  {key: 'action',         name: 'Action' },
-  {key: 'target_type',    name: 'Target Type' },
-  {key: 'target_id',      name: 'Target ID' },
-  {key: 'initiator_id',   name: 'Initiator ID' },
-  {key: 'initiator_name', name: 'Initiator Name' },
-  {key: 'initiator_type', name: 'Initiator Type' },
-  {key: 'outcome',        name: 'Outcome' }
-]
 
 const EventList = ({
   events,

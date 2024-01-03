@@ -1,10 +1,9 @@
 import React from "react"
 import { AppShell, AppShellProvider } from "juno-ui-components"
-import StoreProvider, { useGlobalsActions, useGlobalsEndpoint} from "./components/StoreProvider"
+import StoreProvider, { useGlobalsActions } from "./components/StoreProvider"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import AppContent from "./AppContent"
 import styles from "./styles.scss"
-import useCommunication from "./hooks/useCommunication"
 
 /* IMPORTANT: Replace this with your app's name */
 const URL_STATE_KEY = "maillog"
@@ -12,6 +11,18 @@ const URL_STATE_KEY = "maillog"
 
 const App = (props = {}) => {
   const { setEndpoint, setUrlStateKey, setEmbedded } = useGlobalsActions()
+  // const [token, setToken] = React.useState()
+  // React.useEffect(() => {
+  //   let timer
+  //   const getToken = () =>
+  //     props.getTokenFunc().then((token) => {
+  //       setToken(token.authToken)
+  //       timer = setTimeout(getToken, new Date(token.expires_at).getTime())
+  //     })
+
+  //   getToken()
+  //   return () => clearTimeout(timer)
+  // }, [setToken])
 
   // Create query client which it can be used from overall in the app
   // set default endpoint to fetch data
@@ -19,20 +30,15 @@ const App = (props = {}) => {
     defaultOptions: {
       queries: {
         meta: {
-          endpoint:
-            props.endpoint ||
-            props.currentHost ||
-           "",
+          endpoint: props.endpoint || props.currentHost || "",
         },
       },
     },
   })
   if (props.endpoint) {
-      setEndpoint(props.endpoint)
-    }
+    setEndpoint(props.endpoint)
+  }
   React.useEffect(() => {
-   
-
     setEmbedded(props?.embedded === true || props?.embedded === "true")
   }, [props])
 
@@ -49,7 +55,6 @@ const App = (props = {}) => {
         pageHeader="Converged Cloud | Maillog"
         embedded={props.embedded === "true" || props.embedded === true}
       >
-
         <AppContent props={props} />
       </AppShell>
     </QueryClientProvider>
@@ -60,9 +65,12 @@ const StyledApp = (props) => {
   return (
     <AppShellProvider theme={`${props.theme ? props.theme : "theme-dark"}`}>
       {/* load styles inside the shadow dom */}
+
       <style>{styles.toString()}</style>
       <StoreProvider>
-        <App {...props} />
+        {/* <GetToken/> */}
+        <App data-props-get-token-func="_getCurrentToken" {...props} />
+        <script></script>
       </StoreProvider>
     </AppShellProvider>
   )

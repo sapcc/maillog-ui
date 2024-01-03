@@ -5,7 +5,7 @@ import {
 
 // get all logs
 export const getLogs = (bearerToken, endpoint, options) => {
-    console.log("getLogs")
+    console.log("getLogs run")
 
   return useQuery({
     // queryKey: ["logs", bearerToken, endpoint, options],

@@ -1,17 +1,8 @@
 import { useQuery } from "@tanstack/react-query"
-import {
-  dataFn,
-  
-} from "./actions"
+import { dataFn } from "./actions"
 
 // get all services
-export const getData = (bearerToken, endpoint, options) => {
-  console.log('getData run')
-    console.log('bearerToken',bearerToken)
-    console.log('endpoint',endpoint)
-    console.log('options',options)
-  
-
+export const useGetData = (bearerToken, endpoint, options) => {
   return useQuery({
     queryKey: ["data", bearerToken, endpoint, options],
     queryFn: dataFn,
@@ -23,4 +14,3 @@ export const getData = (bearerToken, endpoint, options) => {
     keepPreviousData: true,
   })
 }
-

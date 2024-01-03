@@ -61,7 +61,8 @@ const request = (url, options = {}) => {
     if (res.status === 403 && unauthorizedHandler) unauthorizedHandler()
     else if (res.status >= 400) {
       const message = await res.text()
-      throw Error(message, { status: res.status, statusText: res.statusText })
+      return false
+      // throw Error(message, { status: res.status, statusText: res.statusText })
     } else return res
   })
 }

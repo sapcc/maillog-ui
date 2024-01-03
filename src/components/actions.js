@@ -10,7 +10,6 @@ class HTTPError extends Error {
 
 
 export const encodeUrlParamsFromObject = (options) => {
-    console.log("enc")
 
   if (!options) return ""
   let encodedOptions = Object.keys(options)
@@ -32,7 +31,6 @@ export const encodeUrlParamsFromObject = (options) => {
 
 
 const checkStatus = (response) => {
-  console.log("res",response )
   if (response.status < 400) {
     return response
   } else {

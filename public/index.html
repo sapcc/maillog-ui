@@ -24,31 +24,53 @@
         display: inline;
       }
     </style>
+
+
     <script>
+      
       // automatically reload on build changes
       new EventSource("/esbuild").addEventListener("change", () =>
         location.reload()
       )
     </script>
   </head>
-  <body>
-
-      <!-- <script
-          defer
-          src="https://assets.juno.global.cloud.sap/apps/widget-loader@latest/build/app.js"
-          data-name="auth"
-          data-version="latest"
-          data-props-initial-login="true"
-          data-props-mock='{"groups":["organization:test-org", "team:containers","support-group:containers","role:ccloud:admin"]}'
-  ></script> -->
-
+  <body>   
     <script type="module">
+  
       // appProps are generated in development env and added to the build
       import appProps from "./build/appProps.js"
+
+      
+      
+      // for dev
+      window._getCurrentToken = async () => ({
+        token: {
+          // Simulate the complete token information, including user, roles, catalog, etc.
+          user: {
+            id: 123,
+            name: "John Doe",
+          },
+          roles: ["admin", "editor"],
+          catalog: {
+            serviceA: { endpoints: ["endpointA", "endpointB"] },
+          },
+          // Add other token information as needed.
+        },
+        authToken: "your-simulated-JWT",
+      });
+
+
+      appProps.getTokenFunc = window._getCurrentToken
+      
       import("./build/index.js").then((app) => {
         app.mount(document.getElementById("root"), { props: appProps })
       })
+
     </script>
-    <div id="root" data-juno-app="maillog"></div>
+
+    <div id="root" data-juno-app="maillog">
+
+    </div>
   </body>
 </html>
+
