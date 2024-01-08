@@ -1,7 +1,8 @@
-import React, { useMemo, useState, useEffect } from "react"
+import React, { useMemo, useState, useEffect, useRef } from "react"
 import { Stack, Button, TextInput, Form } from "juno-ui-components"
 import Datetime from "react-datetime"
 import moment from "moment"
+
 const formStyle = {
   display: "flex",
   justifyContent: "space-between",
@@ -9,22 +10,31 @@ const formStyle = {
   alignItems: "center",
 }
 
-const SearchBar = ({ children, onChange, className, ...props }) => {
-  const isValidDate = (date) =>
-    // do not allow dates that are in the future
-    !moment(date).isAfter()
-  const [from, setFrom] = useState("")
-  const [subject, setSubject] = useState("")
-  const [recipients, setRecipients] = useState("")
-  const [sender, setSender] = useState("")
-  const [messageId, setMessageId] = useState("")
-  const [start, setStart] = useState(null)
-  const [end, setEnd] = useState(null)
+const SearchBar = ({
+  children,
+  onChange,
+  searchOptions,
+  className,
+  ...props
+}) => {
+  const isValidDate = (date) => !moment(date).isAfter()
 
-  // const [project, setProject] = useState("")
-  useEffect(() => {
-    onChange({ from, subject, recipients, sender, messageId, start, end })
-  }, [from, subject, recipients, sender, messageId, start, end])
+  const handleSearchChanges = (newOptions) => {
+    onChange({ ...searchOptions, ...newOptions })
+  }
+
+  const handleClear = () => {
+    onChange({
+      ...searchOptions,
+      from: "",
+      subject: "",
+      rcpt: [],
+      messageId: "",
+      id: "",
+      start: null,
+      end: null,
+    })
+  }
 
   return (
     <>
@@ -33,58 +43,65 @@ const SearchBar = ({ children, onChange, className, ...props }) => {
           id="from"
           label="From"
           width="auto"
-          value={from}
-          onChange={(e) => setFrom(e.target.value)}
+          value={searchOptions.from}
+          onChange={(e) => handleSearchChanges({ from: e.target.value })}
         />
         <TextInput
           id="subject"
           label="Subject"
           width="auto"
-          value={subject}
-          onChange={(e) => setSubject(e.target.value)}
+          value={searchOptions.subject}
+          onChange={(e) => handleSearchChanges({ subject: e.target.value })}
         />
         <TextInput
-          id="recipients"
+          id="rcpt"
           label="Recipients"
           width="auto"
-          value={recipients}
-          onChange={(e) => setRecipients(e.target.value)}
-        />
-        <TextInput
-          id="sender"
-          label="Sender"
-          width="auto"
-          value={sender}
-          onChange={(e) => setSender(e.target.value)}
+          value={searchOptions.rcpt.join(",")}
+          onChange={(e) =>
+            handleSearchChanges({ rcpt: e.target.value.split(",") })
+          }
         />
         <TextInput
           id="messageId"
           label="Message ID"
           width="auto"
-          value={messageId}
-          onChange={(e) => setMessageId(e.target.value)}
+          value={searchOptions.messageId}
+          onChange={(e) => handleSearchChanges({ messageId: e.target.value })}
         />
+        <TextInput
+          id="id"
+          label="Cronus Request ID"
+          width="auto"
+          value={searchOptions.id}
+          onChange={(e) => handleSearchChanges({ id: e.target.value })}
+        />
+        {/* <TextInput
+          id="queueId"
+          label="Queue ID"
+          width="auto"
+          value={queueId}
+          onChange={(e) => setSender(e.target.value)}
+        /> */}
         <label>Time range (UTC):</label>
         <Datetime
-          // value={}
-          textColor="black"
           id="start"
           inputProps={{ placeholder: "Select start time" }}
           isValidDate={isValidDate}
           timeFormat="HH:mm"
-          onChange={(e) => setStart(e.format())}
+          onChange={(e) => handleSearchChanges({ start: e.format() })}
           closeOnSelect
         />
-        -
+        &ndash;
         <Datetime
           id="end"
-          // value={}
           inputProps={{ placeholder: "Select end time" }}
           isValidDate={isValidDate}
           timeFormat="HH:mm"
-          onChange={(e) => setEnd(e.format())}
+          onChange={(e) => handleSearchChanges({ end: e.format() })}
           closeOnSelect
         />
+        <Button onClick={handleClear}>Clear</Button>
       </Form>
     </>
   )
