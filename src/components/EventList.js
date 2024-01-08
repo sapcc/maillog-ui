@@ -27,6 +27,7 @@ const EventList = ({ children, className, ...props }) => {
     rcpt: [],
     id: "",
     messageId: "",
+    headerFrom: "",
     start: null,
     end: null,
     IncludeAttempts: true,
@@ -80,7 +81,7 @@ const EventList = ({ children, className, ...props }) => {
               <DataGridRow>
                 <DataGridHeadCell></DataGridHeadCell>
                 <DataGridHeadCell>Time</DataGridHeadCell>
-                <DataGridHeadCell>From</DataGridHeadCell>
+                <DataGridHeadCell>Envelope From</DataGridHeadCell>
                 <DataGridHeadCell>Recipients</DataGridHeadCell>
                 <DataGridHeadCell>Subject</DataGridHeadCell>
                 <DataGridHeadCell></DataGridHeadCell>

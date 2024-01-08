@@ -26,7 +26,8 @@ const ItemDetails = ({ data, children, className, ...props }) => {
     !d?.dialog?.data || d.dialog.data.length === 0
       ? d.dialog.mailFrom
       : d.dialog.data
-  const code = codeDataBlock.response.code + codeDataBlock.response.msg
+  const code = codeDataBlock.response.code
+  const msg = codeDataBlock.response.msg
   const attempts = (
     <div style={{ ...BlockStyle, marginLeft: "15px" }}>
       <span>
@@ -36,7 +37,10 @@ const ItemDetails = ({ data, children, className, ...props }) => {
         <b>Hostname Relay:</b> {d.hostname}
       </span>
       <span>
-        <b>code:</b> {code}
+        <b>Response Code:</b> {code}
+      </span>
+      <span>
+        <b>Message:</b> {msg}
       </span>
     </div>
   )
@@ -47,7 +51,7 @@ const ItemDetails = ({ data, children, className, ...props }) => {
         <tr key={i}>
           <td style={{ padding: "8px" }}>{r.rcpt}</td>
           <td style={{ padding: "8px" }}>{r.relay}</td>
-          <td style={{ padding: "8px" }}>{r.rcpt}</td>
+          <td style={{ padding: "8px" }}>{r.response.code}</td>
           <td style={{ padding: "8px" }}>{r.response.ext}</td>
           <td style={{ padding: "8px" }}>{r.response.msg}</td>
         </tr>
@@ -127,6 +131,14 @@ const ItemDetails = ({ data, children, className, ...props }) => {
           <span>
             <b>Message ID:</b> {data.messageId}
           </span>
+
+          <span>
+            <b>Envelope From:</b> {data.from}
+          </span>
+
+          <span>
+            <b>Header From:</b> {data.headerFrom}
+          </span>
           <br />
 
           <span>
@@ -135,9 +147,8 @@ const ItemDetails = ({ data, children, className, ...props }) => {
           </span>
           <br />
 
-          <span>
+          <span style={BlockStyle}>
             <b>Summary:</b>
-            <br />
             {summary}
           </span>
           <br />
@@ -158,6 +169,7 @@ const ItemDetails = ({ data, children, className, ...props }) => {
             <Icon icon={showJson ? "expandLess" : "expandMore"}></Icon>
             {showJson ? "Hide JSON" : "Show JSON"}
           </a>
+          <br />
 
           {showJson && <JsonViewer data={data} expanded />}
         </div>
