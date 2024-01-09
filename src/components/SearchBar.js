@@ -26,7 +26,7 @@ const SearchBar = ({
   className,
   ...props
 }) => {
-  const isValidDate = (date) => !moment(date).isAfter()
+  const isValidDate = (date) => date != "" && !moment(date).isAfter()
 
   const handleSearchChanges = (newOptions) => {
     onChange({ ...searchOptions, ...newOptions })
@@ -103,20 +103,45 @@ const SearchBar = ({
         <div style={flexStyle}>
           <label>Time range (UTC):</label>
           <Datetime
+            value={searchOptions.start ? searchOptions.start : ""}
+            onChange={(value) => {
+              handleSearchChanges({
+                start: value && isNaN(new Date(value)) === false ? value : "",
+              })
+            }}
+            renderInput={(props) => {
+              return (
+                <input
+                  {...props}
+                  value={searchOptions.start ? props.value : ""}
+                />
+              )
+            }}
             id="start"
             inputProps={{ placeholder: "Select start time" }}
             isValidDate={isValidDate}
-            timeFormat="HH:mm"
-            onChange={(e) => handleSearchChanges({ start: e.format() })}
             closeOnSelect
           />
           &ndash;
           <Datetime
+            value={searchOptions.end ? searchOptions.end : ""}
+            onChange={(value) => {
+              handleSearchChanges({
+                end: value && isNaN(new Date(value)) === false ? value : "",
+              })
+            }}
+            renderInput={(props) => {
+              return (
+                <input
+                  {...props}
+                  value={searchOptions.end ? props.value : ""}
+                />
+              )
+            }}
             id="end"
             inputProps={{ placeholder: "Select end time" }}
             isValidDate={isValidDate}
             timeFormat="HH:mm"
-            onChange={(e) => handleSearchChanges({ end: e.format() })}
             closeOnSelect
           />
         </div>
