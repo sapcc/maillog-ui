@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react"
-import { useGlobalsEndpoint } from "./StoreProvider"
+import {useAuthData, useAuthProject, useGlobalsEndpoint} from "./StoreProvider";
 import { useGetData } from "../queries"
 import Pagination from "./Pagination"
 import {
@@ -31,10 +31,10 @@ const EventList = ({ children, className, ...props }) => {
     start: null,
     end: null,
     IncludeAttempts: true,
-    project: "3e114e00af9e4494bc643aa6d554bdd1", // default project value, will need to receive from token auth
+    project: useAuthProject(), // default project value, will need to receive from token auth
   })
-
-  const fetchedData = useGetData(true, endpoint, {
+  var token = useAuthData()
+  const fetchedData = useGetData(token, endpoint, {
     ...paginationOptions,
     ...searchOptions,
   })
@@ -60,7 +60,6 @@ const EventList = ({ children, className, ...props }) => {
       })
     }
   }, [fetchedData.data])
-
   return useMemo(() => {
     return (
       <Container style={{ height: "100%" }}>

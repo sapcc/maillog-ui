@@ -11,7 +11,6 @@ import {
 } from "juno-ui-components"
 import moment from "moment"
 const ItemDetails = ({ data, children, className, ...props }) => {
-  console.log(data)
   const BlockStyle = { display: "flex", flexDirection: "column" }
   const RowStyle = { display: "flex", flexDirection: "row" }
 

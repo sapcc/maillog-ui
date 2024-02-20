@@ -22,7 +22,9 @@ export const useAuth =  () =>  useAppStore((state) => state.auth)
 
 // export const useGlobalsLogin = () =>  useAppStore((state) => state.globals.login)
 
-export const useAuthData = () => useAppStore((state) => state.auth.data)
+export const useAuthData = () => useAppStore((state) => state.auth.token)
+
+export const useAuthProject = () => useAppStore((state) => state.auth.project)
 
 export const useAuthIsProcessing = () => useAppStore((state) => state.auth.isProcessing)
 

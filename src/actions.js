@@ -43,7 +43,6 @@ const checkStatus = (response) => {
 
 export const dataFn = ({ queryKey }) => {
   const [_key, bearerToken, endpoint, options] = queryKey
-
   let e = "http://localhost:8083"
   return fetchFromAPI(bearerToken, e, "/v1/mails/search", options)
 }
@@ -64,8 +63,7 @@ const fetchFromAPI = async (bearerToken, endpoint, path, requestData) => {
       headers: {
         "Content-Type": "application/json",
         // Authorization: `Bearer ${bearerToken}`,
-        "X-Auth-Token":
-          "gAAAAABljCmiVjV4M8kyXFR5pyI_d3JMV-c5xPRfqCOkxLMBhfmcFUVW9WA1aLU1n7mq27hQRdvN6B-colYwTleNY8hi7zhiXVBksFgB1Ynyv4pjJgfCXmpVs8S862iZ_YMXC_XYj0gxJtHf-qdsMqhLTILbs3Uq7TfddTKW3xFrXOxKkg1hRZfs2icfNL6DKGLI7A9bHyoMDnZZpWgIJkRasus_21dkBR2mFtDp4-8EDv1p7myFLYFh0VRcIbZiQx3p7nqN7cIM",
+        "X-Auth-Token": bearerToken
       },
       body: JSON.stringify(requestData),
     })
