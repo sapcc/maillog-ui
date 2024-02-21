@@ -43,8 +43,7 @@ const checkStatus = (response) => {
 
 export const dataFn = ({ queryKey }) => {
   const [_key, bearerToken, endpoint, options] = queryKey
-  let e = "http://localhost:8083"
-  return fetchFromAPI(bearerToken, e, "/v1/mails/search", options)
+  return fetchFromAPI(bearerToken, endpoint, "/v1/mails/search", options)
 }
 
 // export const service = ({ queryKey }) => {
