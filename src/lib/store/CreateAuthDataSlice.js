@@ -30,8 +30,6 @@ const createAuthDataSlice = (set, get) => ({
                     data.project === get().auth.project
                 )
                     return;
-
-                console.log("here111",data)
                 set(
                     (state) => (
                         {

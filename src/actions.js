@@ -62,7 +62,7 @@ const fetchFromAPI = async (bearerToken, endpoint, path, requestData) => {
       headers: {
         "Content-Type": "application/json",
         // Authorization: `Bearer ${bearerToken}`,
-        "X-Auth-Token": bearerToken
+        "X-Auth-Token": bearerToken,
       },
       body: JSON.stringify(requestData),
     })
