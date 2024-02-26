@@ -51,7 +51,7 @@
   },
   "appProps": {
     "theme": {
-      "value": "theme-dark",
+      "value": "theme-light",
       "type": "optional",
       "description": "Override the default theme. Possible values are theme-light or theme-dark (default)"
     },
@@ -64,16 +64,18 @@
       "value": "false",
       "type": "optional",
       "description": "Set to true if app is to be embedded in another existing app or page, like e.g. Elektra.  If set to true the app won't render a page header/footer and instead render only the content. The default value is false."
-    },"token": {
+    },
+    "token": {
       "value": "",
       "type": "optional",
       "description": "token for maillog server"
-    },"project": {
+    },
+    "project": {
       "value": "",
       "type": "optional",
       "description": "project for maillog server"
     }
-    },
+  },
   "appDependencies": {
     "auth": "latest"
   },
@@ -83,5 +85,10 @@
     "node-fetch": "^3.3.2",
     "react-datepicker": "^4.25.0",
     "react-datetime": "^3.2.0"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "zustand": "4.3.7"
   }
 }
