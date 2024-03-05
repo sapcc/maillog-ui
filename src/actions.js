@@ -83,32 +83,3 @@ const fetchFromAPI = async (bearerToken, endpoint, path, requestData) => {
     throw error
   }
 }
-
-const f1etchFromAPI = (bearerToken, endpoint, path, options) => {
-  const query = encodeUrlParamsFromObject(options)
-  // return fetch(`${endpoint}${path}?${query}`, {
-  return fetch(`${endpoint}${path}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Auth-Token":
-        "gAAAAABljCmiVjV4M8kyXFR5pyI_d3JMV-c5xPRfqCOkxLMBhfmcFUVW9WA1aLU1n7mq27hQRdvN6B-colYwTleNY8hi7zhiXVBksFgB1Ynyv4pjJgfCXmpVs8S862iZ_YMXC_XYj0gxJtHf-qdsMqhLTILbs3Uq7TfddTKW3xFrXOxKkg1hRZfs2icfNL6DKGLI7A9bHyoMDnZZpWgIJkRasus_21dkBR2mFtDp4-8EDv1p7myFLYFh0VRcIbZiQx3p7nqN7cIM",
-
-      // Authorization: `Bearer ${bearerToken}`,
-    },
-  })
-    .then(checkStatus)
-    .then((response) => {
-      let isJSON = response.headers
-        .get("content-type")
-        .includes("application/json")
-      if (!isJSON) {
-        var error = new HTTPError(
-          400,
-          "The response is not a valid JSON response"
-        )
-        return Promise.reject(error)
-      }
-      return response.json()
-    })
-}

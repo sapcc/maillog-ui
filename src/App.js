@@ -15,19 +15,6 @@ const URL_STATE_KEY = "maillog"
 const App = (props = {}) => {
   const { setEndpoint, setUrlStateKey, setEmbedded } = useGlobalsActions()
   const { setAuthData } = useAuthActions()
-  // const [token, setToken] = React.useState()
-  // React.useEffect(() => {
-  //   let timer
-  //   const getToken = () =>
-  //     props.getTokenFunc().then((token) => {
-  //       setToken(token.authToken)
-  //       timer = setTimeout(getToken, new Date(token.expires_at).getTime())
-  //     })
-
-  //   getToken()
-  //   return () => clearTimeout(timer)
-  // }, [setToken])
-
   // Create query client which it can be used from overall in the app
   // set default endpoint to fetch data
   const queryClient = new QueryClient({

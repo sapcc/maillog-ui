@@ -53,7 +53,7 @@ const Item = ({ data, children, className, ...props }) => {
         </DataGridCell>
         <DataGridCell>{data.from}</DataGridCell>
         <DataGridCell>
-          {data.rcpts.map((item) => item.rcpt).join(", ")}
+          {data?.rcpts && data.rcpts.map((item) => item.rcpt).join(", ")}
         </DataGridCell>
         <DataGridCell>{data.subject}</DataGridCell>
 
