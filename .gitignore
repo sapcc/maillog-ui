@@ -4,3 +4,4 @@ node_modules
 public/build
 secretProps.json
 src/.DS_Store
+build
