@@ -46,27 +46,38 @@ export const dataFn = ({ queryKey }) => {
   return fetchFromAPI(bearerToken, endpoint, "/v1/mails/search", options)
 }
 
-// export const service = ({ queryKey }) => {
-//   const [_key, bearerToken, endpoint, serviceId] = queryKey
-//   return fetchFromAPI(bearerToken, endpoint, `/services/${serviceId}`)
-// }
+
 
 //
 // COMMONS
 //
 
 const fetchFromAPI = async (bearerToken, endpoint, path, requestData) => {
+  // Filter out null and empty string values from requestData
+  const filteredRequestData = Object.entries(requestData).reduce(
+    (acc, [key, value]) => {
+      if (value !== null && value !== "") {
+        acc[key] = value
+      }
+      return acc
+    },
+    {}
+  )
+
+  // Convert the filtered requestData to query parameters
+  const queryParams = new URLSearchParams(filteredRequestData).toString()
+  const url = `${endpoint}${path}?${queryParams}`
+
   try {
-    const response = await fetch(`${endpoint}${path}`, {
-      method: "POST",
+    const response = await fetch(url, {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
-        // Authorization: `Bearer ${bearerToken}`,
+        // "Authorization": `Bearer ${bearerToken}`, // Uncomment if needed
         "X-Auth-Token": bearerToken,
       },
-      body: JSON.stringify(requestData),
+      // The body is not used with GET requests, so it's removed
     })
-
     // Check if the request was successful (status code 2xx)
     if (response.ok) {
       const jsonResponse = await response.json()

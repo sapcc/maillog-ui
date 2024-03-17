@@ -19,30 +19,32 @@ const ItemDetails = ({ data, children, className, ...props }) => {
   const toggleDetails = () => {
     setShowJson(!showJson)
   }
-
-  const d = data.attempts[0]
-  const codeDataBlock =
-    !d?.dialog?.data || d.dialog.data.length === 0
-      ? d.dialog.mailFrom
-      : d.dialog.data
-  const code = codeDataBlock.response.code
-  const msg = codeDataBlock.response.msg
-  const attempts = (
-    <div style={{ ...BlockStyle, marginLeft: "15px" }}>
-      <span>
-        <b>Date:</b> {moment(d.date).format("YYYY-MM-DD, HH:mm:ss")}
-      </span>
-      <span>
-        <b>Hostname Relay:</b> {d.hostname}
-      </span>
-      <span>
-        <b>Response Code:</b> {code}
-      </span>
-      <span>
-        <b>Message:</b> {msg}
-      </span>
-    </div>
-  )
+  let attempts = null
+  if (data?.attempts) {
+    const d = data.attempts[0]
+    const codeDataBlock =
+      !d?.dialog?.data || d.dialog.data.length === 0
+        ? d.dialog.mailFrom
+        : d.dialog.data
+    const code = codeDataBlock.response.code
+    const msg = codeDataBlock.response.msg
+    attempts = (
+      <div style={{ ...BlockStyle, marginLeft: "15px" }}>
+        <span>
+          <b>Date:</b> {moment(d.date).format("YYYY-MM-DD, HH:mm:ss")}
+        </span>
+        <span>
+          <b>Hostname Relay:</b> {d.hostname}
+        </span>
+        <span>
+          <b>Response Code:</b> {code}
+        </span>
+        <span>
+          <b>Message:</b> {msg}
+        </span>
+      </div>
+    )
+  }
 
   const recipientsTable = () => {
     const recipients = data.rcpts.map((r, i) => {
@@ -115,7 +117,11 @@ const ItemDetails = ({ data, children, className, ...props }) => {
 
   const summary = Object.entries(data.summary).map(([key, value]) => {
     if (value != 0) {
-      return <span style={{ marginLeft: "15px" }}>{key}</span>
+      return (
+        <span key={key} style={{ marginLeft: "15px" }}>
+          {key}
+        </span>
+      )
     }
   })
 
@@ -140,10 +146,12 @@ const ItemDetails = ({ data, children, className, ...props }) => {
           </span>
           <br />
 
-          <span>
-            <b>Attempt:</b>
-            {attempts}
-          </span>
+          {attempts && (
+            <span>
+              <b>Attempts:</b>
+              {attempts}
+            </span>
+          )}
           <br />
 
           <span style={BlockStyle}>

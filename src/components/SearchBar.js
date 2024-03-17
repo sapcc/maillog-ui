@@ -3,6 +3,9 @@ import { Stack, Button, TextInput, Form } from "juno-ui-components"
 import Datetime from "react-datetime"
 import moment from "moment"
 
+const DATE_FORMAT = "YYYY-MM-DDTHH:mm:ss"
+// const DATE_SHOW_FORMAT = "YYYY-MM-DDTHH:mm:ss"
+
 const formStyle = {
   display: "flex",
   justifyContent: "normal",
@@ -93,20 +96,16 @@ const SearchBar = ({
           value={searchOptions.id}
           onChange={(e) => handleSearchChanges({ id: e.target.value })}
         />
-        {/* <TextInput
-          id="queueId"
-          label="Queue ID"
-          width="auto"
-          value={queueId}
-          onChange={(e) => setSender(e.target.value)}
-        /> */}
         <div style={flexStyle}>
           <label>Time range (UTC):</label>
           <Datetime
             value={searchOptions.start ? searchOptions.start : ""}
             onChange={(value) => {
               handleSearchChanges({
-                start: value && isNaN(new Date(value)) === false ? value : "",
+                start:
+                  value && isNaN(new Date(value)) === false
+                    ? value.format(DATE_FORMAT)
+                    : "",
               })
             }}
             renderInput={(props) => {
@@ -127,7 +126,10 @@ const SearchBar = ({
             value={searchOptions.end ? searchOptions.end : ""}
             onChange={(value) => {
               handleSearchChanges({
-                end: value && isNaN(new Date(value)) === false ? value : "",
+                end:
+                  value && isNaN(new Date(value)) === false
+                    ? value.format(DATE_FORMAT)
+                    : "",
               })
             }}
             renderInput={(props) => {
