@@ -1,3 +1,5 @@
+import { FormatRequestData } from "./helper"
+
 class HTTPError extends Error {
   constructor(code, message) {
     super(message || code)
@@ -43,29 +45,15 @@ const checkStatus = (response) => {
 
 export const dataFn = ({ queryKey }) => {
   const [_key, bearerToken, endpoint, options] = queryKey
-  return fetchFromAPI(bearerToken, endpoint, "/v1/mails/search", options)
+  const requestData = FormatRequestData(options)
+  return fetchFromAPI(bearerToken, endpoint, "/v1/mails/search", requestData)
 }
-
-
 
 //
 // COMMONS
 //
 
-const fetchFromAPI = async (bearerToken, endpoint, path, requestData) => {
-  // Filter out null and empty string values from requestData
-  const filteredRequestData = Object.entries(requestData).reduce(
-    (acc, [key, value]) => {
-      if (value !== null && value !== "") {
-        acc[key] = value
-      }
-      return acc
-    },
-    {}
-  )
-
-  // Convert the filtered requestData to query parameters
-  const queryParams = new URLSearchParams(filteredRequestData).toString()
+const fetchFromAPI = async (bearerToken, endpoint, path, queryParams) => {
   const url = `${endpoint}${path}?${queryParams}`
 
   try {

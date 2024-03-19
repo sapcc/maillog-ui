@@ -1,46 +1,43 @@
 import React, { useState } from "react"
-import {
-  Button,
-  DataGridCell,
-  DataGridRow,
-  Icon,
-  JsonViewer,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "juno-ui-components"
+import { DataGridCell, DataGridRow, Icon, JsonViewer } from "juno-ui-components"
 import moment from "moment"
+import CopyableText from "./CopyableText"
+
 const ItemDetails = ({ data, children, className, ...props }) => {
   const BlockStyle = { display: "flex", flexDirection: "column" }
   const RowStyle = { display: "flex", flexDirection: "row" }
-
   const [showJson, setShowJson] = useState(false)
 
   const toggleDetails = () => {
     setShowJson(!showJson)
   }
+
   let attempts = null
+
   if (data?.attempts) {
     const d = data.attempts[0]
     const codeDataBlock =
       !d?.dialog?.data || d.dialog.data.length === 0
         ? d.dialog.mailFrom
         : d.dialog.data
+
     const code = codeDataBlock.response.code
     const msg = codeDataBlock.response.msg
+
     attempts = (
       <div style={{ ...BlockStyle, marginLeft: "15px" }}>
         <span>
           <b>Date:</b> {moment(d.date).format("YYYY-MM-DD, HH:mm:ss")}
         </span>
         <span>
-          <b>Hostname Relay:</b> {d.hostname}
+          <b>Hostname Relay:</b>
+          <Copya text={d.hostname}>{d.hostname}</Copya>
         </span>
         <span>
-          <b>Response Code:</b> {code}
+          <b>Response Code:</b> <CopyableText text={code}>{code}</CopyableText>
         </span>
         <span>
-          <b>Message:</b> {msg}
+          <b>Message:</b> <CopyableText text={msg}>{msg}</CopyableText>
         </span>
       </div>
     )
@@ -130,19 +127,25 @@ const ItemDetails = ({ data, children, className, ...props }) => {
       <DataGridCell colSpan={6}>
         <div style={BlockStyle}>
           <span>
-            <b>Cronus Request ID:</b> {data.id}
+            <b>Cronus Request ID:</b>
+            <CopyableText text={data.id}>{data.id}</CopyableText>
           </span>
 
           <span>
-            <b>Message ID:</b> {data.messageId}
+            <b>Message ID:</b>
+            <CopyableText text={data.messageId}>{data.messageId}</CopyableText>
           </span>
 
           <span>
-            <b>Envelope From:</b> {data.from}
+            <b>Envelope From:</b>
+            <CopyableText text={data.from}>{data.from}</CopyableText>
           </span>
 
           <span>
-            <b>Header From:</b> {data.headerFrom}
+            <b>Header From:</b>
+            <CopyableText text={data.headerFrom}>
+              {data.headerFrom}
+            </CopyableText>
           </span>
           <br />
 

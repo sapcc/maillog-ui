@@ -26,6 +26,8 @@ const SearchBar = ({
   children,
   onChange,
   searchOptions,
+  onPageChange,
+  pageOptions,
   className,
   ...props
 }) => {
@@ -33,11 +35,14 @@ const SearchBar = ({
 
   const handleSearchChanges = (newOptions) => {
     onChange({ ...searchOptions, ...newOptions })
+    onPageChange({ ...pageOptions, page: 0 })
+    console.log("page", pageOptions)
   }
 
   const handleClear = () => {
     onChange({
       ...searchOptions,
+      page: 0,
       from: "",
       subject: "",
       rcpt: [],
@@ -87,7 +92,21 @@ const SearchBar = ({
           label="Message ID"
           width="auto"
           value={searchOptions.messageId}
-          onChange={(e) => handleSearchChanges({ messageId: e.target.value })}
+          onChange={(e) => {
+            let messageId = e.target.value.trim()
+
+            // Ensure messageId is wrapped with '<' and '>' if it's not empty
+            if (
+              messageId &&
+              !messageId.startsWith("<") &&
+              !messageId.endsWith(">")
+            ) {
+              messageId = `<${messageId}>`
+            }
+
+            // Pass the potentially modified messageId to handleSearchChanges
+            handleSearchChanges({ messageId })
+          }}
         />
         <TextInput
           id="id"

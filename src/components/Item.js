@@ -10,12 +10,14 @@ import {
   TooltipTrigger,
 } from "juno-ui-components"
 import ItemDetails from "./ItemDetails"
+
 const Item = ({ data, children, className, ...props }) => {
   const [showDetails, setShowDetails] = useState(false)
 
   const toggleDetails = () => {
     setShowDetails(!showDetails)
   }
+  
   const downloadJsonFile = () => {
     const jsonString = JSON.stringify(data, null, 2) // The third parameter (2) adds indentation for better readability
     const blob = new Blob([jsonString], { type: "application/json" })

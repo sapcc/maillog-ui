@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useMemo } from "react"
-import {useAuthData, useAuthProject, useGlobalsEndpoint} from "./StoreProvider";
+import {
+  useAuthData,
+  useAuthProject,
+  useGlobalsEndpoint,
+} from "./StoreProvider"
 import { useGetData } from "../queries"
 import Pagination from "./Pagination"
 import {
@@ -30,7 +34,7 @@ const EventList = ({ children, className, ...props }) => {
     headerFrom: "",
     start: null,
     end: null,
-    IncludeAttempts: true,
+    // IncludeAttempts: true,
     project: useAuthProject(), // default project value, will need to receive from token auth
   })
   var token = useAuthData()
@@ -63,7 +67,12 @@ const EventList = ({ children, className, ...props }) => {
   return useMemo(() => {
     return (
       <Container style={{ height: "100%" }}>
-        <SearchBar onChange={setSearchOptions} searchOptions={searchOptions} />
+        <SearchBar
+          onChange={setSearchOptions}
+          onPageChange={setPaginationOptions}
+          searchOptions={searchOptions}
+          pageOptions={paginationOptions}
+        />
 
         {tableData.isLoading && !tableData.data ? (
           <HintLoading text="Loading Logs..." />
@@ -71,7 +80,7 @@ const EventList = ({ children, className, ...props }) => {
           <>
             <Pagination
               hits={tableData.hits}
-              pageSize={ITEMS_PER_PAGE}
+              pageOptions={paginationOptions}
               onChanged={setPaginationOptions}
               isFetching={tableData.isFetching}
               disabled={!!tableData.error}

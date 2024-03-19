@@ -9,31 +9,37 @@ import {
   TooltipTrigger,
 } from "juno-ui-components"
 
-const Pagination = ({ hits, pageSize, onChanged, isFetching, disabled }) => {
-  const [currentPage, setCurrentPage] = useState(1)
-  const [selectedPageSize, setSelectedPageSize] = useState(pageSize || 10)
-
+const Pagination = ({
+  hits,
+  onChanged,
+  isFetching,
+  pageOptions,
+  disabled,
+}) => {
+  // const [page, setpage] = useState(1)
+  // const [pageSize, setpageSize] = useState(pageSize || 10)
+  const { page, pageSize } = pageOptions
   useEffect(() => {
-    if (onChanged) onChanged({ page: currentPage, pageSize: selectedPageSize })
-  }, [currentPage, selectedPageSize])
+    if (onChanged) onChanged({ page: page, pageSize: pageSize })
+  }, [page, pageSize])
 
   hits = useMemo(() => {
     return hits || 0
   }, [hits])
 
   const totalPages = useMemo(() => {
-    return Math.ceil(hits / selectedPageSize)
-  }, [hits, selectedPageSize])
+    return Math.ceil(hits / pageSize)
+  }, [hits, pageSize])
 
   const onPrevChanged = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1)
+    if (page > 1) {
+      onChanged({ ...pageOptions, page: page - 1 })
     }
   }
 
   const onNextChanged = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1)
+    if (page < totalPages) {
+      onChanged({ ...pageOptions, page: page + 1 })
     }
   }
 
@@ -49,16 +55,16 @@ const Pagination = ({ hits, pageSize, onChanged, isFetching, disabled }) => {
       >
         <Button
           className="ml-4"
-          disabled={currentPage === 1 || disabled}
+          disabled={page === 1 || disabled}
           label="<"
           onClick={onPrevChanged}
           size="small"
         />
         <p className="ml-4">
-          {currentPage} / {totalPages}
+          {page} / {totalPages}
         </p>
         <Button
-          disabled={currentPage === totalPages || disabled}
+          disabled={page === totalPages || disabled}
           className="ml-4"
           label=">"
           onClick={onNextChanged}
@@ -68,9 +74,11 @@ const Pagination = ({ hits, pageSize, onChanged, isFetching, disabled }) => {
         <Select
           style={{ marginLeft: "15px" }}
           width="auto"
-          placeholder={String(selectedPageSize)}
-          value={String(selectedPageSize)}
-          onChange={(value) => setSelectedPageSize(Number(value))}
+          placeholder={String(pageSize)}
+          value={String(pageSize)}
+          onChange={(value) =>
+            onChanged({ ...pageOptions, pageSize: Number(value) })
+          }
         >
           {pageSizeOptions.map((value) => (
             <SelectOption value={value} key={value} />
