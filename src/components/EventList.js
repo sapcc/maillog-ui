@@ -20,7 +20,6 @@ import SearchBar from "./SearchBar"
 const ITEMS_PER_PAGE = 15
 
 const EventList = ({ children, className, ...props }) => {
-  const endpoint = useGlobalsEndpoint()
   const [paginationOptions, setPaginationOptions] = useState({
     pageSize: ITEMS_PER_PAGE,
     page: 0,
@@ -32,15 +31,18 @@ const EventList = ({ children, className, ...props }) => {
     id: "",
     messageId: "",
     headerFrom: "",
-    start: null,
-    end: null,
     // IncludeAttempts: true,
     project: useAuthProject(), // default project value, will need to receive from token auth
   })
+  const [dateOptions, setDateOptions] = useState({ start: null, end: null })
+  
+  const endpoint = useGlobalsEndpoint()
   var token = useAuthData()
+
   const fetchedData = useGetData(token, endpoint, {
     ...paginationOptions,
     ...searchOptions,
+    ...dateOptions
   })
 
   const [tableData, setTableData] = useState({
@@ -51,6 +53,10 @@ const EventList = ({ children, className, ...props }) => {
     isFetching: false,
     error: null,
   })
+
+  const setDate = (date) => {
+    setDateOptions({ ...date })
+  }
 
   useEffect(() => {
     if (fetchedData && fetchedData.data) {
@@ -71,7 +77,9 @@ const EventList = ({ children, className, ...props }) => {
           onChange={setSearchOptions}
           onPageChange={setPaginationOptions}
           searchOptions={searchOptions}
+          dateOptions={dateOptions}
           pageOptions={paginationOptions}
+          onDateChange={setDate}
         />
 
         {tableData.isLoading && !tableData.data ? (

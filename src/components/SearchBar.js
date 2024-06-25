@@ -1,10 +1,6 @@
-import React, { useMemo, useState, useEffect, useRef } from "react"
-import { Stack, Button, TextInput, Form } from "juno-ui-components"
-import Datetime from "react-datetime"
+import React from "react"
+import { Button, TextInput, Form, DateTimePicker } from "juno-ui-components"
 import moment from "moment"
-
-const DATE_FORMAT = "YYYY-MM-DDTHH:mm:ss"
-// const DATE_SHOW_FORMAT = "YYYY-MM-DDTHH:mm:ss"
 
 const formStyle = {
   display: "flex",
@@ -27,18 +23,22 @@ const SearchBar = ({
   onChange,
   searchOptions,
   onPageChange,
+  onDateChange,
   pageOptions,
+  dateOptions,
   className,
   ...props
 }) => {
+  
   const isValidDate = (date) => date != "" && !moment(date).isAfter()
 
   const handleSearchChanges = (newOptions) => {
     onChange({ ...searchOptions, ...newOptions })
-    onPageChange({ ...pageOptions, page: 0 })
-    console.log("page", pageOptions)
+    onPageChange({ ...pageOptions, page: 0 }) 
   }
-
+  const handleDate = (date) => {
+    onDateChange({...date})
+  }
   const handleClear = () => {
     onChange({
       ...searchOptions,
@@ -117,53 +117,30 @@ const SearchBar = ({
         />
         <div style={flexStyle}>
           <label>Time range (UTC):</label>
-          <Datetime
-            value={searchOptions.start ? searchOptions.start : ""}
+          <DateTimePicker
             onChange={(value) => {
-              handleSearchChanges({
+              handleDate({
                 start:
-                  value && isNaN(new Date(value)) === false
-                    ? value.format(DATE_FORMAT)
-                    : "",
+                  value && isNaN(new Date(value)) === false ? value[0] : "",
               })
-            }}
-            renderInput={(props) => {
-              return (
-                <input
-                  {...props}
-                  value={searchOptions.start ? props.value : ""}
-                />
-              )
             }}
             id="start"
-            inputProps={{ placeholder: "Select start time" }}
-            isValidDate={isValidDate}
-            closeOnSelect
+            label="Select a start date"
+            enableTime={true}
+            time_24hr
           />
           &ndash;
-          <Datetime
-            value={searchOptions.end ? searchOptions.end : ""}
+          <DateTimePicker
             onChange={(value) => {
-              handleSearchChanges({
+              handleDate({
                 end:
-                  value && isNaN(new Date(value)) === false
-                    ? value.format(DATE_FORMAT)
-                    : "",
+                  value && isNaN(new Date(value)) === false ? value[0] : "",
               })
             }}
-            renderInput={(props) => {
-              return (
-                <input
-                  {...props}
-                  value={searchOptions.end ? props.value : ""}
-                />
-              )
-            }}
             id="end"
-            inputProps={{ placeholder: "Select end time" }}
-            isValidDate={isValidDate}
-            timeFormat="HH:mm"
-            closeOnSelect
+            label="Select a end date"
+            enableTime={true}
+            time_24hr
           />
         </div>
         <Button
