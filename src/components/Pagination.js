@@ -1,12 +1,9 @@
-import React, { useMemo, useState, useEffect } from "react"
+import React, { useMemo, useEffect } from "react"
 import {
   Stack,
   Button,
   Select,
   SelectOption,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
 } from "juno-ui-components"
 
 const Pagination = ({

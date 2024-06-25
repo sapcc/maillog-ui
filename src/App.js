@@ -58,7 +58,7 @@ const App = (props = {}) => {
 
 const StyledApp = (props) => {
   return (
-    <AppShellProvider theme={`${props.theme ? props.theme : "theme-dark"}`}>
+    <AppShellProvider theme={`${props.theme ? props.theme : "theme-light"}`}>
       {/* load styles inside the shadow dom */}
 
       <style>{styles.toString()}</style>
