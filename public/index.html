@@ -25,24 +25,18 @@
       }
     </style>
 
-
     <script>
-      
       // automatically reload on build changes
       new EventSource("/esbuild").addEventListener("change", () =>
         location.reload()
       )
     </script>
   </head>
-  <body>   
+  <body>
     <script type="module">
-  
       // appProps are generated in development env and added to the build
       import appProps from "./build/appProps.js"
 
-      
-      
-      // for dev
       window._getCurrentToken = async () => ({
         token: {
           // Simulate the complete token information, including user, roles, catalog, etc.
@@ -53,24 +47,22 @@
           roles: ["admin", "editor"],
           catalog: {
             serviceA: { endpoints: ["endpointA", "endpointB"] },
+            serviceB: { endpoints: ["endpointC"] },
           },
           // Add other token information as needed.
         },
-        authToken: "your-simulated-JWT",
-      });
+        authToken: "---",
+        project: ""
+      })
 
-
-      appProps.getTokenFunc = window._getCurrentToken
-      
       import("./build/index.js").then((app) => {
         app.mount(document.getElementById("root"), { props: appProps })
       })
-
     </script>
 
-    <div id="root" data-juno-app="maillog">
-
-    </div>
+    <div
+      id="root"
+      data-juno-app="maillog"
+    ></div>
   </body>
 </html>
-

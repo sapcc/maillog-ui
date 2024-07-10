@@ -12,7 +12,22 @@ import styles from "./styles.scss"
 const URL_STATE_KEY = "maillog"
 /* --------------------------- */
 
-const App = (props = {}) => {
+const App = ({ ...props }) => {
+  const [token, setToken] = React.useState()
+
+  React.useEffect(() => {
+    let timer
+    const getToken = () =>
+      // [_]
+      window._getCurrentToken().then((token) => {
+        setToken(token.authToken)
+        timer = setTimeout(getToken, new Date(token.expires_at).getTime())
+      })
+
+    getToken()
+    return () => clearTimeout(timer)
+  }, [setToken])
+  console.log("token", token)
   const { setEndpoint, setUrlStateKey, setEmbedded } = useGlobalsActions()
   const { setAuthData } = useAuthActions()
   // Create query client which it can be used from overall in the app
@@ -64,8 +79,7 @@ const StyledApp = (props) => {
       <style>{styles.toString()}</style>
       <StoreProvider>
         {/* <GetToken/> */}
-        <App data-props-get-token-func="_getCurrentToken" {...props} />
-        <script></script>
+        <App {...props} />
       </StoreProvider>
     </AppShellProvider>
   )
