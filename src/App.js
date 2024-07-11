@@ -22,13 +22,12 @@ const App = ({ ...props }) => {
         const authToken = token.authToken
         // can also take project id from token.project.id
         setAuthData( {token: authToken, project: props.project })
-        console.log("data was set", token, project)
+        console.log("data was set, token: ", authToken," project: ", props.project)
         timer = setTimeout(getToken, new Date(token.expires_at).getTime())
       })
-
     getToken()
     return () => clearTimeout(timer)
-  },[] )
+  },[setAuthData] )
   
   const { setEndpoint, setUrlStateKey, setEmbedded } = useGlobalsActions()
   // Create query client which it can be used from overall in the app
