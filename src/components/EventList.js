@@ -16,10 +16,11 @@ import {
 import HintLoading from "./HintLoading"
 import Item from "./Item"
 import SearchBar from "./SearchBar"
+import { p } from "juno-ui-components/build/headlessui-float-b6255f0a"
 
 const ITEMS_PER_PAGE = 15
 
-const EventList = ({ children, className, ...props }) => {
+const EventList = ({props }) => {
   const [paginationOptions, setPaginationOptions] = useState({
     pageSize: ITEMS_PER_PAGE,
     page: 0,
@@ -32,17 +33,17 @@ const EventList = ({ children, className, ...props }) => {
     messageId: "",
     headerFrom: "",
     // IncludeAttempts: true,
-    project: useAuthProject(), // default project value, will need to receive from token auth
   })
   const [dateOptions, setDateOptions] = useState({ start: null, end: null })
-  
   const endpoint = useGlobalsEndpoint()
-  var token = useAuthData()
-
+  const token = useAuthData()
+  const project = useAuthProject()
+  
   const fetchedData = useGetData(token, endpoint, {
     ...paginationOptions,
     ...searchOptions,
-    ...dateOptions
+    ...dateOptions,
+    project: project,
   })
 
   const [tableData, setTableData] = useState({

@@ -38,23 +38,14 @@
       import appProps from "./build/appProps.js"
 
       window._getCurrentToken = async () => ({
-        token: {
-          // Simulate the complete token information, including user, roles, catalog, etc.
-          user: {
-            id: 123,
-            name: "John Doe",
-          },
-          roles: ["admin", "editor"],
-          catalog: {
-            serviceA: { endpoints: ["endpointA", "endpointB"] },
-            serviceB: { endpoints: ["endpointC"] },
-          },
-          // Add other token information as needed.
-        },
-        authToken: "emptytoken",
-        project: "empyproject"
+        authToken: "gAAAAABmkBQ7AaOytxRm4nCP1qXyM8LAGg4sV8QAf2WZdvwLO0pPpk21F2r72Pz82pHYYU6M0WOqM7VlysVEc73e1NvqSheRjnDxBFzi7Ded1mWtea1nU7_ny_ieb9lSV34nCMM4ExAxwaW5DVdBTQgTxWq7YeDhVCkFYst5CumGGNr-V4dqpljH9lt4oBz3X5OQC7QsXNP8VwM6Bg8ZJtmrN4DAPVGeOteyt5UmQpw9_v8kkvDOaks",
+        expires_at: "2024-07-12T17:21:06.000000Z",
+        issued_at: "2024-07-11T09:21:08.000000Z",
+        project: {
+          id: "53239c88b1e041f2a71966d6dcd5ea4a",
+          name: "c5321213-cronus",
+        },    
       })
-
       import("./build/index.js").then((app) => {
         app.mount(document.getElementById("root"), { props: appProps })
       })

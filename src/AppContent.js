@@ -5,11 +5,10 @@ import { useAuth } from "./components/StoreProvider"
 
 // This is your starting point of tour application
 // see several examples in the exampleApp
-const AppContent = (props) => {
-
+const AppContent = ({props}) => {
   return (
     <>
-      <EventList />
+      <EventList props={props}/>
     </>
   )
 }
