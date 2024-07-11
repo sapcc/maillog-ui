@@ -14,21 +14,21 @@ const URL_STATE_KEY = "maillog"
 
 const App = ({ ...props }) => {
   const { setAuthData } = useAuthActions()
-  React.useEffect(() => {
-    let timer
-    const getToken = () =>
-      // [_]A
-      window._getCurrentToken().then((token) => {  
-        const authToken = token.authToken
-        // can also take project id from token.project.id
-        setAuthData( {token: authToken, project: props.project })
-        console.log("data was set, token: ", authToken," project: ", props.project)
-        timer = setTimeout(getToken, new Date(token.expires_at).getTime())
-      })
-    getToken()
-    return () => clearTimeout(timer)
-  },[setAuthData] )
-  
+  // React.useEffect(() => {
+  //   let timer
+  //   const getToken = () =>
+  //     // [_]A
+
+  //   getToken()
+  //   return () => clearTimeout(timer)
+  // },[setAuthData] )
+  window._getCurrentToken().then((token) => {  
+    const authToken = token.authToken
+    // can also take project id from token.project.id
+    setAuthData( {token: authToken, project: props.project })
+    console.log("data was set, token: ", authToken," project: ", props.project)
+    // timer = setTimeout(getToken, new Date(token.expires_at).getTime())
+  })
   const { setEndpoint, setUrlStateKey, setEmbedded } = useGlobalsActions()
   // Create query client which it can be used from overall in the app
   // set default endpoint to fetch data
