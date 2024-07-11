@@ -146,7 +146,6 @@ const SearchBar = ({
         <Button
           onClick={handleClear}
           style={{
-            position: "absolute",
             right: "2rem",
             top: "1rem",
           }}
