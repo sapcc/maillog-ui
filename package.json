@@ -1,6 +1,6 @@
 {
   "name": "maillog",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "author": "C5321213",
   "license": "MIT",
   "source": "src/index.js",
@@ -55,7 +55,7 @@
       "description": "Override the default theme. Possible values are theme-light or theme-dark (default)"
     },
     "endpoint": {
-      "value": "https://maillog.qa-de-1.cloud.sap",
+      "value": "https://maillog.eu-de-1.cloud.sap",
       "type": "required",
       "description": "Endpoint URL of the API"
     },
