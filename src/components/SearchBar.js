@@ -52,8 +52,6 @@ const SearchBar = ({
       start: null,
       end: null,
     })
-    const elem = document.getElementById("start");
-    console.log(elem)
   }
 
   return (
