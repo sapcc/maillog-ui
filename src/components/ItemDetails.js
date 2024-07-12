@@ -21,8 +21,8 @@ const ItemDetails = ({ data, children, className, ...props }) => {
         ? d.dialog.mailFrom
         : d.dialog.data
 
-    const code = codeDataBlock.response?.code
-    const msg = codeDataBlock.response?.msg
+    const code = codeDataBlock.response?.code ? codeDataBlock.response?.code  : ""
+    const msg = codeDataBlock.response?.msg ? codeDataBlock.response?.msg  : ""
 
     attempts = (
       <div style={{ ...BlockStyle, marginLeft: "15px" }}>
