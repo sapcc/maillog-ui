@@ -21,8 +21,8 @@ const ItemDetails = ({ data, children, className, ...props }) => {
         ? d.dialog.mailFrom
         : d.dialog.data
 
-    const code = codeDataBlock.response.code
-    const msg = codeDataBlock.response.msg
+    const code = codeDataBlock.response?.code
+    const msg = codeDataBlock.response?.msg
 
     attempts = (
       <div style={{ ...BlockStyle, marginLeft: "15px" }}>
@@ -49,9 +49,9 @@ const ItemDetails = ({ data, children, className, ...props }) => {
         <tr key={i}>
           <td style={{ padding: "8px" }}>{r.rcpt}</td>
           <td style={{ padding: "8px" }}>{r.relay}</td>
-          <td style={{ padding: "8px" }}>{r.response.code}</td>
-          <td style={{ padding: "8px" }}>{r.response.ext}</td>
-          <td style={{ padding: "8px" }}>{r.response.msg}</td>
+          <td style={{ padding: "8px" }}>{r.response?.code}</td>
+          <td style={{ padding: "8px" }}>{r.response?.ext}</td>
+          <td style={{ padding: "8px" }}>{r.response?.msg}</td>
         </tr>
       )
     })
