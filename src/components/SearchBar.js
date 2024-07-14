@@ -114,15 +114,6 @@ const SearchBar = ({
           value={searchOptions.id}
           onChange={(e) => handleSearchChanges({ id: e.target.value })}
         />
-        <Button
-          onClick={handleClear}
-          style={{
-            right: "2rem",
-            top: "1rem",
-          }}
-        >
-          Clear All Filters
-        </Button>
         <div style={flexStyle}>
           <label style={{    "flex-shrink": 0}}>Time range (UTC):</label>
           <DateTimePicker
@@ -151,9 +142,19 @@ const SearchBar = ({
             time_24hr
           />
         </div>
+        <Button
+          onClick={handleClear}
+          style={{
+            right: "2rem",
+            top: "1rem",
+          }}
+        >
+          Clear All Filters
+        </Button>
       </Form>
     </>
   )
 }
+
 
 export default SearchBar
