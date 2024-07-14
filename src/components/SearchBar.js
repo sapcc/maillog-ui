@@ -31,7 +31,7 @@ const SearchBar = ({
 }) => {
   
   const isValidDate = (date) => date != "" && !moment(date).isAfter()
-
+  const [reRender, setReRender] = React.useState(0)
   const handleSearchChanges = (newOptions) => {
     onChange({ ...searchOptions, ...newOptions })
     onPageChange({ ...pageOptions, page: 0 }) 
@@ -52,11 +52,12 @@ const SearchBar = ({
       start: null,
       end: null,
     })
+    setReRender(reRender + 1)
   }
 
   return (
     <>
-      <Form style={formStyle}>
+      <Form style={formStyle} key={reRender}>
         <TextInput
           id="from"
           label="Envelope From"
