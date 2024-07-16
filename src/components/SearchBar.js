@@ -104,6 +104,7 @@ const SearchBar = ({
         />
         <TooltipedInput
           tooltipContent="Search By Cronus Request ID"
+          placement={"bottom-start"}
           id="id"
           label="Cronus Request ID"
           width="auto"

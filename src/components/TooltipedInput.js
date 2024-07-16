@@ -7,9 +7,9 @@ import {
 import React, { useState } from "react"
 
 
-const TooltipedInput = ({ id, label, value, tooltipContent,onChange  }) => {
+const TooltipedInput = ({ id, label, value, tooltipContent,onChange,placement }) => {
   return (
-    <Tooltip triggerEvent="hover" placement={"top-start"}>
+    <Tooltip triggerEvent="hover" placement={placement ? placement : "top-start"}>
       <TooltipTrigger asChild>
         <div>
         <TextInput
