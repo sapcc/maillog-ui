@@ -32,6 +32,7 @@ const EventList = ({props }) => {
     id: "",
     messageId: "",
     headerFrom: "",
+    relay: "",
     // IncludeAttempts: true,
   })
   const [dateOptions, setDateOptions] = useState({ start: null, end: null })
@@ -98,7 +99,7 @@ const EventList = ({props }) => {
               <DataGridRow>
                 <DataGridHeadCell></DataGridHeadCell>
                 <DataGridHeadCell>Time</DataGridHeadCell>
-                <DataGridHeadCell>Envelope From</DataGridHeadCell>
+                <DataGridHeadCell>From</DataGridHeadCell>
                 <DataGridHeadCell>Recipients</DataGridHeadCell>
                 <DataGridHeadCell>Subject</DataGridHeadCell>
                 <DataGridHeadCell></DataGridHeadCell>

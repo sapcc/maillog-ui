@@ -1,5 +1,5 @@
 import React from "react"
-import { Button, TextInput, Form, DateTimePicker } from "juno-ui-components"
+import { Button, TextInput, Form, DateTimePicker, Select, SelectOption, TooltipTrigger, Tooltip, TooltipContent } from "juno-ui-components"
 import moment from "moment"
 import TooltipedInput from "./TooltipedInput"
 
@@ -43,13 +43,13 @@ const SearchBar = ({
   const handleClear = () => {
     handleSearchChanges({
       ...searchOptions,
-      page: 0,
       from: "",
       subject: "",
       rcpt: [],
       messageId: "",
       headerFrom: "",
       id: "",
+      relay: "",
       start: null,
       end: null,
     })
@@ -62,7 +62,7 @@ const SearchBar = ({
         <TooltipedInput
           tooltipContent="Search By Sender Address"
           id="from"
-          label="Envelope From"
+          label="From"
           width="auto"
           value={searchOptions.from}
           onChange={(e) => handleSearchChanges({ from: e.target.value })}
@@ -103,14 +103,32 @@ const SearchBar = ({
           }}
         />
         <TooltipedInput
-          tooltipContent="Search By Cronus Request ID"
+          tooltipContent="Search By Request ID"
           placement={"bottom-start"}
           id="id"
-          label="Cronus Request ID"
+          label="Request ID"
           width="auto"
           value={searchOptions.id}
           onChange={(e) => handleSearchChanges({ id: e.target.value })}
         />
+          <Tooltip triggerEvent="hover" placement={"bottom-start"}>
+      <TooltipTrigger asChild>
+        <div>
+        <Select
+          id= "relay"
+          placeholder="Relay"
+          width="auto"
+          onChange={(value) => handleSearchChanges({ relay: value })}
+          onValueChange={(value) => handleSearchChanges({ relay: value })}
+        >
+          <SelectOption value="aws" />
+          <SelectOption value="int" />
+          <SelectOption value="esa" />
+        </Select>
+        </div>
+         </TooltipTrigger>
+       <TooltipContent>Search By Relay</TooltipContent> 
+     </Tooltip>
         <div style={flexStyle}>
           <label style={{    "flexShrink": 0}}>Time Range (UTC):</label>
           <DateTimePicker

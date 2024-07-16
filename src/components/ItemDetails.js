@@ -128,7 +128,7 @@ const ItemDetails = ({ data, children, className, ...props }) => {
         <div style={BlockStyle}>
 
            <span>
-            <b>Envelope From:</b>
+            <b>From:</b>
             <CopyableText text={data.from}>{data.from}</CopyableText>
           </span>
 
@@ -145,7 +145,7 @@ const ItemDetails = ({ data, children, className, ...props }) => {
           </span>
 
           <span>
-            <b>Cronus Request ID:</b>
+            <b>Request ID:</b>
             <CopyableText text={data.id}>{data.id}</CopyableText>
           </span>
 
