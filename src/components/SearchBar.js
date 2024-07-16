@@ -122,9 +122,11 @@ const SearchBar = ({
           onValueChange={(value) => handleSearchChanges({ relay: value })}
         >
           <SelectOption value="aws" />
+          <SelectOption value="esa" />
+          <SelectOption value="esa_bulk" />
           <SelectOption value="int" />
           <SelectOption value="postfix" />
-          <SelectOption value="esa" />
+          <SelectOption value="null" />
           <SelectOption value="" label="All" />
 
         </Select>
