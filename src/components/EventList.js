@@ -23,7 +23,7 @@ const ITEMS_PER_PAGE = 15
 const EventList = ({props }) => {
   const [paginationOptions, setPaginationOptions] = useState({
     pageSize: ITEMS_PER_PAGE,
-    page: 0,
+    page: 1,
   })
   const [searchOptions, setSearchOptions] = useState({
     from: "",

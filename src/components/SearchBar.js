@@ -1,6 +1,7 @@
 import React from "react"
 import { Button, TextInput, Form, DateTimePicker } from "juno-ui-components"
 import moment from "moment"
+import TooltipedInput from "./TooltipedInput"
 
 const formStyle = {
   display: "flex",
@@ -34,13 +35,13 @@ const SearchBar = ({
   const [reRender, setReRender] = React.useState(0)
   const handleSearchChanges = (newOptions) => {
     onChange({ ...searchOptions, ...newOptions })
-    onPageChange({ ...pageOptions, page: 0 }) 
+    onPageChange({ ...pageOptions, page: 1 }) 
   }
   const handleDate = (date) => {
     onDateChange({...date})
   }
   const handleClear = () => {
-    onChange({
+    handleSearchChanges({
       ...searchOptions,
       page: 0,
       from: "",
@@ -58,56 +59,51 @@ const SearchBar = ({
   return (
     <>
       <Form style={formStyle} key={reRender}>
-        <TextInput
+        <TooltipedInput
+          tooltipContent="Search By Sender Address"
           id="from"
           label="Envelope From"
           width="auto"
           value={searchOptions.from}
           onChange={(e) => handleSearchChanges({ from: e.target.value })}
         />
-        <TextInput
+        <TooltipedInput
+          tooltipContent="Search By The HeaderFrom Field"          
           id="headerFrom"
           label="Header From"
           width="auto"
           value={searchOptions.headerFrom}
           onChange={(e) => handleSearchChanges({ headerFrom: e.target.value })}
         />
-        <TextInput
-          id="subject"
-          label="Subject"
-          width="auto"
-          value={searchOptions.subject}
-          onChange={(e) => handleSearchChanges({ subject: e.target.value })}
-        />
-        <TextInput
+        <TooltipedInput
+          tooltipContent="Search By Recipients, Separated By ','"          
           id="rcpt"
           label="Recipients"
           width="auto"
           value={searchOptions.rcpt.join(",")}
           onChange={(e) =>handleSearchChanges({ rcpt: e.target.value.split(",") })}
         />
-        <TextInput
+        <TooltipedInput
+          tooltipContent="Search By Subject"
+          id="subject"
+          label="Subject"
+          width="auto"
+          value={searchOptions.subject}
+          onChange={(e) => handleSearchChanges({ subject: e.target.value })}
+        />
+        <TooltipedInput
+          tooltipContent="Search By Message ID, Must Be Written As <MessageID>"
           id="messageId"
           label="Message ID"
           width="auto"
           value={searchOptions.messageId}
           onChange={(e) => {
             let messageId = e.target.value.trim()
-
-            // Ensure messageId is wrapped with '<' and '>' if it's not empty
-            if (
-              messageId &&
-              !messageId.startsWith("<") &&
-              !messageId.endsWith(">")
-            ) {
-              messageId = `<${messageId}>`
-            }
-
-            // Pass the potentially modified messageId to handleSearchChanges
             handleSearchChanges({ messageId })
           }}
         />
-        <TextInput
+        <TooltipedInput
+          tooltipContent="Search By Cronus Request ID"
           id="id"
           label="Cronus Request ID"
           width="auto"
@@ -115,7 +111,7 @@ const SearchBar = ({
           onChange={(e) => handleSearchChanges({ id: e.target.value })}
         />
         <div style={flexStyle}>
-          <label style={{    "flex-shrink": 0}}>Time range (UTC):</label>
+          <label style={{    "flexShrink": 0}}>Time Range (UTC):</label>
           <DateTimePicker
             onChange={(value) => {
               handleDate({
@@ -124,7 +120,7 @@ const SearchBar = ({
               })
             }}
             id="start"
-            label="Select a start date"
+            label="Start Date"
             enableTime={true}
             time_24hr
           />
@@ -137,11 +133,12 @@ const SearchBar = ({
               })
             }}
             id="end"
-            label="Select a end date"
+            label="End Date"
             enableTime={true}
             time_24hr
           />
         </div>
+        
         <Button
           onClick={handleClear}
           style={{

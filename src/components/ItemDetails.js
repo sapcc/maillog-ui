@@ -31,7 +31,7 @@ const ItemDetails = ({ data, children, className, ...props }) => {
         </span>
         <span>
           <b>Hostname Relay:</b>
-          <Copya text={d.hostname}>{d.hostname}</Copya>
+          <CopyableText text={d.hostname}>{d.hostname}</CopyableText>
         </span>
         <span>
           <b>Response Code:</b> <CopyableText text={code}>{code}</CopyableText>
@@ -126,17 +126,8 @@ const ItemDetails = ({ data, children, className, ...props }) => {
     <DataGridRow>
       <DataGridCell colSpan={6}>
         <div style={BlockStyle}>
-          <span>
-            <b>Cronus Request ID:</b>
-            <CopyableText text={data.id}>{data.id}</CopyableText>
-          </span>
 
-          <span>
-            <b>Message ID:</b>
-            <CopyableText text={data.messageId}>{data.messageId}</CopyableText>
-          </span>
-
-          <span>
+           <span>
             <b>Envelope From:</b>
             <CopyableText text={data.from}>{data.from}</CopyableText>
           </span>
@@ -147,6 +138,19 @@ const ItemDetails = ({ data, children, className, ...props }) => {
               {data.headerFrom}
             </CopyableText>
           </span>
+
+            <span>
+            <b>Message ID:</b>
+            <CopyableText text={data.messageId}>{data.messageId}</CopyableText>
+          </span>
+
+          <span>
+            <b>Cronus Request ID:</b>
+            <CopyableText text={data.id}>{data.id}</CopyableText>
+          </span>
+
+        
+         
           <br />
 
           {attempts && (

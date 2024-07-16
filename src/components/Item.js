@@ -10,6 +10,7 @@ import {
   TooltipTrigger,
 } from "juno-ui-components"
 import ItemDetails from "./ItemDetails"
+import CopyableText from "./CopyableText"
 
 const Item = ({ data, children, className, ...props }) => {
   const [showDetails, setShowDetails] = useState(false)
@@ -26,6 +27,7 @@ const Item = ({ data, children, className, ...props }) => {
     link.download = data.id || "data.json"
     link.click()
   }
+  const rcpts = data?.rcpts && data.rcpts.map((item) => item.rcpt).join(", ") 
   return (
     <>
       <DataGridRow>
@@ -53,18 +55,37 @@ const Item = ({ data, children, className, ...props }) => {
             UTC: {moment(data.date).utc().format("YYYY-MM-DD, HH:mm:ss")}
           </p>
         </DataGridCell>
-        <DataGridCell>{data.from}</DataGridCell>
         <DataGridCell>
-          {data?.rcpts && data.rcpts.map((item) => item.rcpt).join(", ")}
+           <CopyableText text={data.from}>
+              {data.from}
+            </CopyableText>
         </DataGridCell>
-        <DataGridCell>{data.subject}</DataGridCell>
-
+        
         <DataGridCell>
-          <Icon
+          <CopyableText text={rcpts}>
+              {rcpts}
+            </CopyableText>
+        </DataGridCell>
+        
+        
+        <DataGridCell>
+          <CopyableText text={data.subject}>
+            {data.subject}            
+            </CopyableText>
+        </DataGridCell>
+
+       <DataGridCell>
+          <Tooltip triggerEvent="hover">
+            <TooltipTrigger asChild>          <Icon
             color="jn-text-theme-info"
             onClick={downloadJsonFile}
             icon="download"
           ></Icon>
+             </TooltipTrigger>
+            <TooltipContent>
+             Download JSON File
+            </TooltipContent>
+          </Tooltip>
         </DataGridCell>
       </DataGridRow>
 

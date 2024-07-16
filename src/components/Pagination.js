@@ -74,7 +74,7 @@ const Pagination = ({
           placeholder={String(pageSize)}
           value={String(pageSize)}
           onChange={(value) =>
-            onChanged({ page: 0, pageSize: Number(value) })
+            onChanged({ page: 1, pageSize: Number(value) })
           }
         >
           {pageSizeOptions.map((value) => (
