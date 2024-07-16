@@ -123,6 +123,7 @@ const SearchBar = ({
         >
           <SelectOption value="aws" />
           <SelectOption value="int" />
+          <SelectOption value="postfix" />
           <SelectOption value="esa" />
         </Select>
         </div>
