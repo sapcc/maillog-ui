@@ -125,6 +125,8 @@ const SearchBar = ({
           <SelectOption value="int" />
           <SelectOption value="postfix" />
           <SelectOption value="esa" />
+          <SelectOption value="" label="All" />
+
         </Select>
         </div>
          </TooltipTrigger>

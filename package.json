@@ -1,6 +1,6 @@
 {
   "name": "maillog",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "author": "C5321213",
   "license": "MIT",
   "source": "src/index.js",
