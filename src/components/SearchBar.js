@@ -1,7 +1,17 @@
-import React from "react"
-import { Button, TextInput, Form, DateTimePicker, Select, SelectOption, TooltipTrigger, Tooltip, TooltipContent } from "juno-ui-components"
-import moment from "moment"
-import TooltipedInput from "./TooltipedInput"
+import React from "react";
+import {
+  Button,
+  TextInput,
+  Form,
+  DateTimePicker,
+  Select,
+  SelectOption,
+  TooltipTrigger,
+  Tooltip,
+  TooltipContent,
+} from "juno-ui-components";
+import moment from "moment";
+import TooltipedInput from "./TooltipedInput";
 
 const formStyle = {
   display: "flex",
@@ -10,14 +20,14 @@ const formStyle = {
   alignItems: "center",
   flexWrap: "wrap",
   gap: 10,
-}
+};
 const flexStyle = {
   display: "flex",
   justifyContent: "space-between",
   flexShrink: 0,
   alignItems: "center",
   gap: 10,
-}
+};
 
 const SearchBar = ({
   children,
@@ -30,16 +40,15 @@ const SearchBar = ({
   className,
   ...props
 }) => {
-  
-  const isValidDate = (date) => date != "" && !moment(date).isAfter()
-  const [reRender, setReRender] = React.useState(0)
+  const isValidDate = (date) => date != "" && !moment(date).isAfter();
+  const [reRender, setReRender] = React.useState(0);
   const handleSearchChanges = (newOptions) => {
-    onChange({ ...searchOptions, ...newOptions })
-    onPageChange({ ...pageOptions, page: 1 }) 
-  }
+    onChange({ ...searchOptions, ...newOptions });
+    onPageChange({ ...pageOptions, page: 1 });
+  };
   const handleDate = (date) => {
-    onDateChange({...date})
-  }
+    onDateChange({ ...date });
+  };
   const handleClear = () => {
     handleSearchChanges({
       ...searchOptions,
@@ -52,23 +61,23 @@ const SearchBar = ({
       relay: "",
       start: null,
       end: null,
-    })
-    setReRender(reRender + 1)
-  }
+    });
+    setReRender(reRender + 1);
+  };
 
   return (
     <>
       <Form style={formStyle} key={reRender}>
         <TooltipedInput
-          tooltipContent="Search By Sender Address"
+          tooltipContent="Search By Envelope From (Sender/From) Address"
           id="from"
-          label="From"
+          label="Envelope From"
           width="auto"
           value={searchOptions.from}
           onChange={(e) => handleSearchChanges({ from: e.target.value })}
         />
         <TooltipedInput
-          tooltipContent="Search By The HeaderFrom Field"          
+          tooltipContent="Search By The HeaderFrom Field"
           id="headerFrom"
           label="Header From"
           width="auto"
@@ -76,12 +85,14 @@ const SearchBar = ({
           onChange={(e) => handleSearchChanges({ headerFrom: e.target.value })}
         />
         <TooltipedInput
-          tooltipContent="Search By Recipients, Separated By ','"          
+          tooltipContent="Search By Recipients, Separated By ','"
           id="rcpt"
           label="Recipients"
           width="auto"
           value={searchOptions.rcpt.join(",")}
-          onChange={(e) =>handleSearchChanges({ rcpt: e.target.value.split(",") })}
+          onChange={(e) =>
+            handleSearchChanges({ rcpt: e.target.value.split(",") })
+          }
         />
         <TooltipedInput
           tooltipContent="Search By Subject"
@@ -98,8 +109,8 @@ const SearchBar = ({
           width="auto"
           value={searchOptions.messageId}
           onChange={(e) => {
-            let messageId = e.target.value.trim()
-            handleSearchChanges({ messageId })
+            let messageId = e.target.value.trim();
+            handleSearchChanges({ messageId });
           }}
         />
         <TooltipedInput
@@ -111,37 +122,36 @@ const SearchBar = ({
           value={searchOptions.id}
           onChange={(e) => handleSearchChanges({ id: e.target.value })}
         />
-          <Tooltip triggerEvent="hover" placement={"bottom-start"}>
-      <TooltipTrigger asChild>
-        <div>
-        <Select
-          id= "relay"
-          placeholder="Relay"
-          width="auto"
-          onChange={(value) => handleSearchChanges({ relay: value })}
-          onValueChange={(value) => handleSearchChanges({ relay: value })}
-        >
-          <SelectOption value="aws" />
-          <SelectOption value="esa" />
-          <SelectOption value="esa_bulk" />
-          <SelectOption value="int" />
-          <SelectOption value="postfix" />
-          <SelectOption value="null" />
-          <SelectOption value="" label="All" />
-
-        </Select>
-        </div>
-         </TooltipTrigger>
-       <TooltipContent>Search By Relay</TooltipContent> 
-     </Tooltip>
+        <Tooltip triggerEvent="hover" placement={"bottom-start"} >
+          <TooltipTrigger asChild>
+            <div className="select-container ">
+              <Select
+                id="relay"
+                placeholder="Select Relay"
+                width="full"
+                onChange={(value) => handleSearchChanges({ relay: value })}
+                onValueChange={(value) => handleSearchChanges({ relay: value })}
+              >
+                <SelectOption value="aws" />
+                <SelectOption value="esa" />
+                <SelectOption value="esa_bulk" />
+                <SelectOption value="int" />
+                <SelectOption value="postfix" />
+                <SelectOption value="null" />
+                <SelectOption value="" label="All Relays" />
+              </Select>
+            </div>
+          </TooltipTrigger>
+          <TooltipContent>Search By Relay</TooltipContent>
+        </Tooltip>
         <div style={flexStyle}>
-          <label style={{    "flexShrink": 0}}>Time Range (UTC):</label>
+          <label style={{ flexShrink: 0 }}>Time Range (UTC):</label>
           <DateTimePicker
             onChange={(value) => {
               handleDate({
                 start:
                   value && isNaN(new Date(value)) === false ? value[0] : "",
-              })
+              });
             }}
             id="start"
             label="Start Date"
@@ -152,9 +162,8 @@ const SearchBar = ({
           <DateTimePicker
             onChange={(value) => {
               handleDate({
-                end:
-                  value && isNaN(new Date(value)) === false ? value[0] : "",
-              })
+                end: value && isNaN(new Date(value)) === false ? value[0] : "",
+              });
             }}
             id="end"
             label="End Date"
@@ -162,7 +171,7 @@ const SearchBar = ({
             time_24hr
           />
         </div>
-        
+
         <Button
           onClick={handleClear}
           style={{
@@ -174,8 +183,7 @@ const SearchBar = ({
         </Button>
       </Form>
     </>
-  )
-}
+  );
+};
 
-
-export default SearchBar
+export default SearchBar;

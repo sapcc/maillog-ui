@@ -1,30 +1,29 @@
-import React, { useState, useEffect, useMemo } from "react"
+import React, { useState, useEffect, useMemo } from "react";
 import {
   useAuthData,
   useAuthProject,
   useGlobalsEndpoint,
-} from "./StoreProvider"
-import { useGetData } from "../queries"
-import Pagination from "./Pagination"
+} from "./StoreProvider";
+import { useGetData } from "../queries";
+import Pagination from "./Pagination";
 import {
   Container,
   DataGrid,
   DataGridCell,
   DataGridHeadCell,
   DataGridRow,
-} from "juno-ui-components"
-import HintLoading from "./HintLoading"
-import Item from "./Item"
-import SearchBar from "./SearchBar"
-import { p } from "juno-ui-components/build/headlessui-float-b6255f0a"
+} from "juno-ui-components";
+import HintLoading from "./HintLoading";
+import Item from "./Item";
+import SearchBar from "./SearchBar";
 
-const ITEMS_PER_PAGE = 15
+const ITEMS_PER_PAGE = 15;
 
-const EventList = ({props }) => {
+const EventList = ({ props }) => {
   const [paginationOptions, setPaginationOptions] = useState({
     pageSize: ITEMS_PER_PAGE,
     page: 1,
-  })
+  });
   const [searchOptions, setSearchOptions] = useState({
     from: "",
     subject: "",
@@ -34,18 +33,18 @@ const EventList = ({props }) => {
     headerFrom: "",
     relay: "",
     // IncludeAttempts: true,
-  })
-  const [dateOptions, setDateOptions] = useState({ start: null, end: null })
-  const endpoint = useGlobalsEndpoint()
-  const token = useAuthData()
-  const project = useAuthProject()
-  
+  });
+  const [dateOptions, setDateOptions] = useState({ start: null, end: null });
+  const endpoint = useGlobalsEndpoint();
+  const token = useAuthData();
+  const project = useAuthProject();
+
   const fetchedData = useGetData(token, endpoint, {
     ...paginationOptions,
     ...searchOptions,
     ...dateOptions,
     project: project,
-  })
+  });
 
   const [tableData, setTableData] = useState({
     data: null,
@@ -54,11 +53,11 @@ const EventList = ({props }) => {
     isError: false,
     isFetching: false,
     error: null,
-  })
+  });
 
   const setDate = (date) => {
-    setDateOptions({ ...date })
-  }
+    setDateOptions({ ...date });
+  };
 
   useEffect(() => {
     if (fetchedData && fetchedData.data) {
@@ -69,9 +68,9 @@ const EventList = ({props }) => {
         isError: fetchedData.isError,
         isFetching: fetchedData.isFetching,
         error: fetchedData.error,
-      })
+      });
     }
-  }, [fetchedData.data])
+  }, [fetchedData.data]);
   return useMemo(() => {
     return (
       <Container style={{ height: "100%" }}>
@@ -99,7 +98,7 @@ const EventList = ({props }) => {
               <DataGridRow>
                 <DataGridHeadCell></DataGridHeadCell>
                 <DataGridHeadCell>Time</DataGridHeadCell>
-                <DataGridHeadCell>From</DataGridHeadCell>
+                <DataGridHeadCell>Envelope From</DataGridHeadCell>
                 <DataGridHeadCell>Recipients</DataGridHeadCell>
                 <DataGridHeadCell>Subject</DataGridHeadCell>
                 <DataGridHeadCell></DataGridHeadCell>
@@ -140,7 +139,7 @@ const EventList = ({props }) => {
           </>
         )}
       </Container>
-    )
-  }, [tableData, paginationOptions, searchOptions])
-}
-export default EventList
+    );
+  }, [tableData, paginationOptions, searchOptions]);
+};
+export default EventList;

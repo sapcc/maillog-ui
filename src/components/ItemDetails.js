@@ -1,28 +1,35 @@
-import React, { useState } from "react"
-import { DataGridCell, DataGridRow, Icon, JsonViewer } from "juno-ui-components"
-import moment from "moment"
-import CopyableText from "./CopyableText"
+import React, { useState } from "react";
+import {
+  DataGridCell,
+  DataGridRow,
+  Icon,
+  JsonViewer,
+} from "juno-ui-components";
+import moment from "moment";
+import CopyableText from "./CopyableText";
 
 const ItemDetails = ({ data, children, className, ...props }) => {
-  const BlockStyle = { display: "flex", flexDirection: "column" }
-  const RowStyle = { display: "flex", flexDirection: "row" }
-  const [showJson, setShowJson] = useState(false)
+  const BlockStyle = { display: "flex", flexDirection: "column" };
+  const RowStyle = { display: "flex", flexDirection: "row" };
+  const [showJson, setShowJson] = useState(false);
 
   const toggleDetails = () => {
-    setShowJson(!showJson)
-  }
+    setShowJson(!showJson);
+  };
 
-  let attempts = null
+  let attempts = null;
 
   if (data?.attempts) {
-    const d = data.attempts[0]
+    const d = data.attempts[0];
     const codeDataBlock =
       !d?.dialog?.data || d.dialog.data.length === 0
         ? d.dialog.mailFrom
-        : d.dialog.data
+        : d.dialog.data;
 
-    const code = codeDataBlock.response?.code ? codeDataBlock.response?.code  : ""
-    const msg = codeDataBlock.response?.msg ? codeDataBlock.response?.msg  : ""
+    const code = codeDataBlock.response?.code
+      ? codeDataBlock.response?.code
+      : "";
+    const msg = codeDataBlock.response?.msg ? codeDataBlock.response?.msg : "";
 
     attempts = (
       <div style={{ ...BlockStyle, marginLeft: "15px" }}>
@@ -40,7 +47,7 @@ const ItemDetails = ({ data, children, className, ...props }) => {
           <b>Message:</b> <CopyableText text={msg}>{msg}</CopyableText>
         </span>
       </div>
-    )
+    );
   }
 
   const recipientsTable = () => {
@@ -53,8 +60,8 @@ const ItemDetails = ({ data, children, className, ...props }) => {
           <td style={{ padding: "8px" }}>{r.response?.ext}</td>
           <td style={{ padding: "8px" }}>{r.response?.msg}</td>
         </tr>
-      )
-    })
+      );
+    });
 
     return (
       <table style={{ borderCollapse: "collapse", width: "100%" }}>
@@ -109,8 +116,8 @@ const ItemDetails = ({ data, children, className, ...props }) => {
         </thead>
         <tbody>{recipients}</tbody>
       </table>
-    )
-  }
+    );
+  };
 
   const summary = Object.entries(data.summary).map(([key, value]) => {
     if (value != 0) {
@@ -118,17 +125,16 @@ const ItemDetails = ({ data, children, className, ...props }) => {
         <span key={key} style={{ marginLeft: "15px" }}>
           {key}
         </span>
-      )
+      );
     }
-  })
+  });
 
   return (
     <DataGridRow>
       <DataGridCell colSpan={6}>
         <div style={BlockStyle}>
-
-           <span>
-            <b>From:</b>
+          <span>
+            <b>Envelope From:</b>
             <CopyableText text={data.from}>{data.from}</CopyableText>
           </span>
 
@@ -139,7 +145,7 @@ const ItemDetails = ({ data, children, className, ...props }) => {
             </CopyableText>
           </span>
 
-            <span>
+          <span>
             <b>Message ID:</b>
             <CopyableText text={data.messageId}>{data.messageId}</CopyableText>
           </span>
@@ -149,8 +155,6 @@ const ItemDetails = ({ data, children, className, ...props }) => {
             <CopyableText text={data.id}>{data.id}</CopyableText>
           </span>
 
-        
-         
           <br />
 
           {attempts && (
@@ -176,8 +180,8 @@ const ItemDetails = ({ data, children, className, ...props }) => {
             href="#"
             style={RowStyle}
             onClick={(e) => {
-              e.preventDefault()
-              toggleDetails(data)
+              e.preventDefault();
+              toggleDetails(data);
             }}
           >
             <Icon icon={showJson ? "expandLess" : "expandMore"}></Icon>
@@ -189,7 +193,7 @@ const ItemDetails = ({ data, children, className, ...props }) => {
         </div>
       </DataGridCell>
     </DataGridRow>
-  )
-}
+  );
+};
 
-export default ItemDetails
+export default ItemDetails;
