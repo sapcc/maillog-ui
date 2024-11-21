@@ -8,7 +8,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "juno-ui-components"
+} from "@cloudoperators/juno-ui-components";
 import ItemDetails from "./ItemDetails"
 import CopyableText from "./CopyableText"
 

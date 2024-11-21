@@ -3,7 +3,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "juno-ui-components"
+} from "@cloudoperators/juno-ui-components";
 import React, { useState } from "react"
 
 const COPY_ICON = <Icon size="15" icon="contentCopy" />

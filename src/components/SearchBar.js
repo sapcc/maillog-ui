@@ -9,7 +9,7 @@ import {
   TooltipTrigger,
   Tooltip,
   TooltipContent,
-} from "juno-ui-components";
+} from "@cloudoperators/juno-ui-components";
 import moment from "moment";
 import TooltipedInput from "./TooltipedInput";
 
