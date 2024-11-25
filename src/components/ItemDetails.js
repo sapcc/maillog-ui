@@ -4,7 +4,7 @@ import {
   DataGridRow,
   Icon,
   JsonViewer,
-} from "juno-ui-components";
+} from "@cloudoperators/juno-ui-components";
 import moment from "moment";
 import CopyableText from "./CopyableText";
 

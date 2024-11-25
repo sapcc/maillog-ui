@@ -4,7 +4,7 @@ import {
   Button,
   Select,
   SelectOption,
-} from "juno-ui-components"
+} from "@cloudoperators/juno-ui-components";
 
 const Pagination = ({
   hits,

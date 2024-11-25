@@ -1,7 +1,5 @@
-import React, { useCallback, useEffect } from "react"
-import { Container } from "juno-ui-components"
+import React from "react"
 import EventList from "./components/EventList"
-import { useAuth } from "./components/StoreProvider"
 
 // This is your starting point of tour application
 // see several examples in the exampleApp

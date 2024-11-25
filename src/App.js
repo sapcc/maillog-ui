@@ -1,5 +1,5 @@
 import React from "react"
-import { AppShell, AppShellProvider } from "juno-ui-components"
+import { AppShell, AppShellProvider } from "@cloudoperators/juno-ui-components";
 import StoreProvider, {
   useAuthActions,
   useGlobalsActions,
