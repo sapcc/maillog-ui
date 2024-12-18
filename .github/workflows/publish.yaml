@@ -39,7 +39,7 @@ jobs:
         run: |
           set +e
           echo "publish to https://github.com/${{ github.repository_owner }}/packages"
-          cat .npmrc
+          npm config get registry
           npm publish --access=public #--dry-run
 
           if [ $? != 0 ] ; then
@@ -50,3 +50,4 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPOSITORY_OWNER: ${{ github.repository_owner }}
+          #NPM_CONFIG_REGISTRY: https://npm.pkg.github.com/
