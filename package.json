@@ -45,9 +45,6 @@
     "start": "PORT=$APP_PORT NODE_ENV=development node esbuild.config.js --serve --watch",
     "build": "NODE_ENV=production node esbuild.config.js"
   },
-  "importmapExtras": {
-    "zustand/middleware": "4.3.7"
-  },
   "appProps": {
     "theme": {
       "value": "theme-light",
