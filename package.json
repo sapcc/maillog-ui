@@ -5,7 +5,7 @@
   "license": "MIT",
   "source": "src/index.js",
   "module": "build/index.js",
-  "private": true,
+  "private": false,
   "devDependencies": {
     "@babel/core": "^7.20.2",
     "@babel/preset-env": "^7.20.2",
@@ -44,9 +44,6 @@
     "test": "jest",
     "start": "PORT=$APP_PORT NODE_ENV=development node esbuild.config.js --serve --watch",
     "build": "NODE_ENV=production node esbuild.config.js"
-  },
-  "importmapExtras": {
-    "zustand/middleware": "4.3.7"
   },
   "appProps": {
     "theme": {
