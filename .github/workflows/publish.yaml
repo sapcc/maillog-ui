@@ -2,9 +2,9 @@ name: package-release
 on:
   push:
     branches:
-      - hgw-build-release
-    #paths:
-    #  - package.json
+      - main
+    paths:
+      - package.json
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 jobs:
