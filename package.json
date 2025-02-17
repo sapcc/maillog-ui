@@ -6,6 +6,11 @@
   "source": "src/index.js",
   "module": "build/index.js",
   "private": false,
+  "files": [
+    "build",
+    "public",
+    "LICENSE"
+  ],
   "devDependencies": {
     "@babel/core": "^7.20.2",
     "@babel/preset-env": "^7.20.2",
