@@ -1,3 +1,5 @@
+Important: This plugin was migrated to elektra https://github.com/SAP-cloud-infrastructure/elektra and is no longer maintained here. Please refer to the elektra repository for the latest updates and maintenance of this plugin.
+
 # maillog-ui
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
